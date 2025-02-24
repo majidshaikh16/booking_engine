@@ -1,0 +1,94 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.15 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.15">
+  <diagram name="Page-1" id="JdiPlgN4b-czE9RH4V3_">
+    <mxGraphModel dx="1434" dy="907" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-1" value="Client" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="349" y="80" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-2" target="uNERbAll_dMS3KvQ5DHH-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-2" value="API GW" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="249" y="170" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="84" y="340" width="660" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-5" value="Booking service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="154" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-6" value="Payment service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="474" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-7" value="Booking service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="164" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-8" value="Payment service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="484" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-9" value="Bookings&lt;br&gt;DB&lt;br&gt;Posgress" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="194" y="520" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-10" value="Kafka" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-11" value="Payements&lt;br&gt;DB&lt;br&gt;Mongo" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="514" y="520" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-12" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-9" target="uNERbAll_dMS3KvQ5DHH-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="510" as="sourcePoint" />
+            <mxPoint x="270" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-13" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="uNERbAll_dMS3KvQ5DHH-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="544" y="520" as="sourcePoint" />
+            <mxPoint x="560" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.417;entryY=-0.05;entryDx=0;entryDy=0;fillColor=#f8cecc;strokeColor=#b85450;entryPerimeter=0;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-7" target="uNERbAll_dMS3KvQ5DHH-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="460" as="sourcePoint" />
+            <mxPoint x="350" y="410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="404" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-17" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.583;entryY=-0.033;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-6" target="uNERbAll_dMS3KvQ5DHH-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="460" y="490" as="sourcePoint" />
+            <mxPoint x="510" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="424" y="415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-18" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-1" target="uNERbAll_dMS3KvQ5DHH-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="590" y="120" as="sourcePoint" />
+            <mxPoint x="640" y="70" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="uNERbAll_dMS3KvQ5DHH-20" target="uNERbAll_dMS3KvQ5DHH-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-20" value="CDN" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-21" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="uNERbAll_dMS3KvQ5DHH-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="100" as="sourcePoint" />
+            <mxPoint x="650" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uNERbAll_dMS3KvQ5DHH-22" value="Blob-Store" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
