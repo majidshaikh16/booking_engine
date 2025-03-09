@@ -36,6 +36,7 @@ release.properties
 *.iml
 *.ipr
 out/
+.idea/*
 
 # Eclipse
 .project
@@ -54,3 +55,9 @@ tmp/
 # Windows
 Thumbs.db
 ehthumbs.db
+
+# Frontend
+node_modules/
+frontend/node_modules/
+
+#do not commit any node modules

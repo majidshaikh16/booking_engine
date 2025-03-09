@@ -4,7 +4,7 @@
 ```bash
 docker exec -it kafka bash
 kafka-topics --list --bootstrap-server localhost:9092
-kafka-topics --create --topic payment-events --bootstrap-server localhost:9092
+kafka-topics --create --topic payment-new --bootstrap-server localhost:9092
 kafka-topics --delete --topic paument-events --bootstrap-server localhost:9092
 
 ##in one line docker exec -it kafka kafka-topics --list --bootstrap-server localhost:9092

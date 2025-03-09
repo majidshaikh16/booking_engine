@@ -14,6 +14,8 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./postgres-postgres-init.sql:/docker-entrypoint-initdb.d/postgres-init.sql
+    networks:
+      - hotel-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -26,6 +28,8 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    networks:
+      - hotel-network
 
   mongodb:
     image: mongo:6
@@ -35,6 +39,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - hotel-network
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -43,6 +49,8 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
     ports:
       - "2181:2181"
+    networks:
+      - hotel-network
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -52,13 +60,18 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
       - "9092:9092"
+      - "9093:9093"
     volumes:
       - kafka-data:/var/lib/kafka/data
+    networks:
+      - hotel-network
 
   kafka-topics-creator:
     image: confluentinc/cp-kafka:latest
@@ -68,14 +81,13 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
     volumes:
       - ./wait-for-kafka.sh:/wait-for-kafka.sh
-    #    entrypoint: [ "/bin/sh", "/wait-for-kafka.sh" ]
-#    entrypoint: [ "/bin/sh", "-c", "kafka-topics --create --topic payment-events --partitions 3 --replication-factor 1 --if-not-exists --bootstrap-server kafka:9092 && sleep infinity" ]
     entrypoint: [ "/bin/sh", "/wait-for-kafka.sh" ]
-
+    networks:
+      - hotel-network
 
   booking-service:
     build:
-      context: ./booking-service  # Path to booking-service Dockerfile
+      context: ./booking-service
     container_name: booking_service
     depends_on:
       - postgres
@@ -88,10 +100,12 @@ services:
       SERVER_PORT: 8081
     ports:
       - "8081:8081"
+    networks:
+      - hotel-network
 
   payment-service:
     build:
-      context: ./payment-service  # Path to payment-service Dockerfile
+      context: ./payment-service
     container_name: payment_service
     depends_on:
       - mongodb
@@ -102,9 +116,29 @@ services:
       SERVER_PORT: 8082
     ports:
       - "8082:8082"
+    networks:
+      - hotel-network
 
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - booking-service
+      - payment-service
+    networks:
+      - hotel-network
+    environment:
+      BOOKING_SERVICE_URL: http://booking-service:8081
+      PAYMENT_SERVICE_URL: http://payment-service:8082
 
 volumes:
   postgres-data:
   mongo-data:
   kafka-data:
+
+networks:
+  hotel-network:
+    driver: bridge

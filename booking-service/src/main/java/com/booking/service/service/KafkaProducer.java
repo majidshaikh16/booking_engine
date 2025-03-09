@@ -10,7 +10,7 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    private static final String TOPIC = "payment-events";
+    private static final String TOPIC = "payment-new";
 
     public void sendMessage(String message) {
         kafkaTemplate.send(TOPIC, message);
