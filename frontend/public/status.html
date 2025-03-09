@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Page</title>
+</head>
+<body>
+  <h1>Status Page</h1>
+  <div id="paymentStatus">Payment Status: Waiting...</div>
+  <div id="bookingStatus">Booking Status: Waiting...</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('paymentStatus', (data) => {
+      document.getElementById('paymentStatus').innerText = `Payment Status: ${data.status}`;
+    });
+
+    socket.on('bookingStatus', (data) => {
+      document.getElementById('bookingStatus').innerText = `Booking Status: ${data.status}`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Form</title>
+</head>
+<body>
+  <h1>Payment Form</h1>
+  <form id="paymentForm">
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" id="cardNumber" name="cardNumber" required>
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" name="cvv" required>
+    <label for="cardHolder">Card Holder:</label>
+    <input type="text" id="cardHolder" name="cardHolder" required>
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount" required>
+    <label for="expiryDate">Expiry Date:</label>
+    <input type="text" id="expiryDate" name="expiryDate" required>
+    <button type="submit">Pay</button>
+  </form>
+  <div id="paymentStatus"></div>
+
+  <script>
+    // Function to get query parameter by name
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    document.getElementById('paymentForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const payload = {
+        cardNumber: formData.get('cardNumber'),
+        cvv: formData.get('cvv'),
+        cardHolder: formData.get('cardHolder'),
+        amount: formData.get('amount'),
+        expiryDate: formData.get('expiryDate'),
+        bookingId: getQueryParam('bookingId') // Add bookingId from query parameter
+      };
+
+      try {
+        console.log('Payment payload:', payload);
+        const response = await fetch('/api/payments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          const paymentResponse = await response.json();
+          const paymentId = paymentResponse.paymentId;
+          document.getElementById('paymentStatus').textContent = 'Payment Initiated with ID: ' + paymentId;
+          checkPaymentStatus(paymentId);
+        } else {
+          document.getElementById('paymentStatus').textContent = 'Error: Payment creation failed';
+        }
+      } catch (error) {
+        document.getElementById('paymentStatus').textContent = 'Error: ' + error.message;
+      }
+    });
+
+    async function checkPaymentStatus(paymentId) {
+      try {
+        document.getElementById('paymentStatus').textContent = 'Loading Payment Status with ID: ' + paymentId;
+        const response = await fetch(`/api/payments/${paymentId}`);
+        if (response.ok) {
+          const payment = await response.json();
+          document.getElementById('paymentStatus').textContent = 'Payment Status: ' + payment.status + ' /n  Payment ID: ' + paymentId + ' /n  redirecting...';
+          //wait for 5 seconds to simulate payment processing and redirect to booking page
+          await new Promise(resolve => setTimeout(resolve, 5000));
+          if(payment.status === 'CONFIRMED') {
+            // Redirect to booking page with success message
+            window.location.href = `/status`;
+          } else if(payment.status === 'FAILED') {
+            // Redirect to booking page with error message
+            window.location.href = `/booking.html?bookingId=${payment.bookingId}&status=error`;
+          } else {
+            // Retry payment status check after 5 seconds
+            setTimeout(() => checkPaymentStatus(paymentId), 5000);
+          }
+        } else {
+          document.getElementById('paymentStatus').textContent = 'Error: Payment status check failed';
+        }
+      } catch (error) {
+        document.getElementById('paymentStatus').textContent = 'Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
